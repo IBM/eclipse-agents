@@ -24,30 +24,30 @@ import org.eclipse.jface.action.MenuManager;
 
 public class ToolbarSessionSelector extends AbstractDynamicToolbarDropdown {
 
-	List<ModelAction> actions;
+	List<SessionAction> actions;
 	
 	public ToolbarSessionSelector(AcpView view) {
 		super("Session", "Select a session", view);
 		
-		actions = new ArrayList<ModelAction>();
+		actions = new ArrayList<SessionAction>();
 		for (IAgentService agent: AcpService.instance().getAgents()) {
-			actions.add(new ModelAction(agent));
+			actions.add(new SessionAction(agent));
 		}
 		setEnabled(false);
 	}
 
 	@Override
 	protected void fillMenu(MenuManager menuManager) {
-//		for (ModelAction action: actions) {
-//			menuManager.add(action);
-//			action.setChecked(action.getAgent() ==  AcpService.instance().getAgentService());
-//		}
+		for (SessionAction action: actions) {
+			menuManager.add(action);
+			action.setChecked(action.getAgent() ==  AcpService.instance().getAgentService());
+		}
 	}
 
-	class ModelAction extends Action {
+	class SessionAction extends Action {
 		IAgentService agent;
 		
-		public ModelAction(IAgentService agent) {
+		public SessionAction(IAgentService agent) {
 			super(agent.getName());
 			this.agent = agent;
 		}

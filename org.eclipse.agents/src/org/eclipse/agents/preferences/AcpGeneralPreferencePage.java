@@ -78,6 +78,7 @@ public class AcpGeneralPreferencePage extends PreferencePage
 		cwd.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		((GridData)cwd.getLayoutData()).horizontalSpan = 3;
 		cwd.addModifyListener(this);
+
 		
 		
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent,
@@ -103,7 +104,7 @@ public class AcpGeneralPreferencePage extends PreferencePage
 				errorMessage = "Enter valid directory path";
 			}
 		}
-		
+
 		setValid(errorMessage == null);
 		setErrorMessage(errorMessage);
 

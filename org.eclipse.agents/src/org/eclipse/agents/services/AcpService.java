@@ -65,7 +65,7 @@ public class AcpService {
 	
 	private ListenerList<IAcpSessionListener> listenerList;
 
-	private InitializationJob initializationJob;
+	private StartServiceJob initializationJob;
 
 	static {
 		instance = new AcpService();
@@ -100,12 +100,12 @@ public class AcpService {
                initializationJob.cancel();
            }
                        
-			initializationJob = new InitializationJob(activeAgent, null);
+			initializationJob = new StartServiceJob(activeAgent, null);
 			initializationJob.addJobChangeListener(new JobChangeAdapter() {
 				@Override
 				public void done(IJobChangeEvent event) {
 					if (event.getJob().getResult().isOK()) {
-						InitializationJob job = (InitializationJob) event.getJob();
+						StartServiceJob job = (StartServiceJob) event.getJob();
 
 						String sessionId = job.getSessionId();
 						if (sessionId != null && !sessions.containsKey(sessionId)) {

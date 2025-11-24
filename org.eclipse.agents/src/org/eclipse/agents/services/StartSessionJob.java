@@ -38,26 +38,25 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 
 
-public class InitializationJob extends Job {
+public class StartSessionJob extends Job {
 
 	// Inputs
 	IAgentService service;
-	String oldSessionId;
+	InitializeResponse initializeResponse;
 	
 	// Outputs
 	String cwd = null;
     McpServer[] mcpServers = null;
     String sessionId = null;
     SessionModeState modes = null;
+    
 
-
-	public InitializationJob(IAgentService service, String oldSessionId) {
-		super("Coding Agent");
+	public StartSessionJob(IAgentService service, InitializeResponse initializeResponse) {
+		super("Coding Agent Session");
 		this.service = service;
-		this.oldSessionId = oldSessionId;
+		this.initializeResponse = initializeResponse;
 	}
 
-	@Override
 	protected IStatus run(IProgressMonitor monitor) {
 		
 		try {
@@ -85,7 +84,6 @@ public class InitializationJob extends Job {
 			if (monitor.isCanceled()) {
 				return Status.CANCEL_STATUS;
 			}
-			
 			
 			monitor.worked(1);
 			monitor.subTask("Connecting");
