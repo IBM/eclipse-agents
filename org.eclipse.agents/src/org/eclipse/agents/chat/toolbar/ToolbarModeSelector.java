@@ -16,9 +16,9 @@ package org.eclipse.agents.chat.toolbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.agents.chat.AcpView;
-import org.eclipse.agents.services.AcpService;
-import org.eclipse.agents.services.agent.IAgentService;
+import org.eclipse.agents.chat.controller.AgentClientController;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
+import org.eclipse.agents.chat.view.ChatView;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 
@@ -26,11 +26,11 @@ public class ToolbarModeSelector extends AbstractDynamicToolbarDropdown {
 
 	List<ModelAction> actions;
 	
-	public ToolbarModeSelector(AcpView view) {
+	public ToolbarModeSelector(ChatView view) {
 		super("Mode", "Select a mode", view);
 		
 		actions = new ArrayList<ModelAction>();
-		for (IAgentService agent: AcpService.instance().getAgents()) {
+		for (IAgentController agent: AgentClientController.instance().getAgents()) {
 			actions.add(new ModelAction(agent));
 		}
 		setEnabled(false);
@@ -40,25 +40,25 @@ public class ToolbarModeSelector extends AbstractDynamicToolbarDropdown {
 	protected void fillMenu(MenuManager menuManager) {
 //		for (ModelAction action: actions) {
 //			menuManager.add(action);
-//			action.setChecked(action.getAgent() ==  AcpService.instance().getAgentService());
+//			action.setChecked(action.getAgent() ==  AgentClientController.instance().getAgentService());
 //		}
 	}
 
 	class ModelAction extends Action {
-		IAgentService agent;
+		IAgentController agent;
 		
-		public ModelAction(IAgentService agent) {
+		public ModelAction(IAgentController agent) {
 			super(agent.getName());
 			this.agent = agent;
 		}
 
 		@Override
 		public void run() {
-			AcpService.instance().setAcpService(getView(), agent);
+			AgentClientController.instance().setAcpService(getView(), agent);
 			ToolbarModeSelector.this.updateText(agent.getName());
 		}
 		
-		public IAgentService getAgent() {
+		public IAgentController getAgent() {
 			return agent;
 		}
 	}

@@ -11,84 +11,83 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services;
+package org.eclipse.agents.chat.controller;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.agents.Tracer;
-import org.eclipse.agents.chat.AcpSessionModel;
-import org.eclipse.agents.chat.AcpView;
-import org.eclipse.agents.services.agent.GeminiService;
-import org.eclipse.agents.services.agent.IAgentService;
-import org.eclipse.agents.services.protocol.AcpSchema.AgentNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.AgentRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.AgentResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.CancelNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.ClientNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.ClientRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.ClientResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.ContentBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.CreateTerminalRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.CreateTerminalResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.KillTerminalCommandRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.KillTerminalCommandResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.PromptRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.PromptResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.ReadTextFileRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.ReadTextFileResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.ReleaseTerminalRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.ReleaseTerminalResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.SetSessionModeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.SetSessionModeResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.StopReason;
-import org.eclipse.agents.services.protocol.AcpSchema.TerminalOutputRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.TerminalOutputResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.WaitForTerminalExitRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.WaitForTerminalExitResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.WriteTextFileResponse;
+import org.eclipse.agents.chat.controller.agent.GeminiAgent;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
+import org.eclipse.agents.chat.protocol.AcpSchema.AgentNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.AgentRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.AgentResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.CancelNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.ClientNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.ClientRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.ClientResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.ContentBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.CreateTerminalRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.CreateTerminalResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.KillTerminalCommandRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.KillTerminalCommandResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.PromptRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.PromptResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReadTextFileRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReadTextFileResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReleaseTerminalRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReleaseTerminalResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.SetSessionModeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.SetSessionModeResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.StopReason;
+import org.eclipse.agents.chat.protocol.AcpSchema.TerminalOutputRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.TerminalOutputResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.WaitForTerminalExitRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.WaitForTerminalExitResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.WriteTextFileResponse;
+import org.eclipse.agents.chat.view.ChatView;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 
-public class AcpService {
+public class AgentClientController {
 
-	private static AcpService instance;
+	private static AgentClientController instance;
 	
-	private IAgentService activeAgent = null;
+	private IAgentController activeAgent = null;
 	private String activeSessionId = null;
 	
-	private static Map<String, AcpSessionModel> sessions = new HashMap<String, AcpSessionModel>();
+	private static Map<String, SessionListener> sessions = new HashMap<String, SessionListener>();
 	
-	private ListenerList<IAcpSessionListener> listenerList;
+	private ListenerList<ISessionListener> listenerList;
 
 	private StartServiceJob initializationJob;
 
 	static {
-		instance = new AcpService();
+		instance = new AgentClientController();
 	}
 	
-	IAgentService[] agentServices;
-	private AcpService() {
-		agentServices = new IAgentService[] { 
-			new GeminiService()
-//			new GooseService()
+	IAgentController[] agentServices;
+	private AgentClientController() {
+		agentServices = new IAgentController[] { 
+			new GeminiAgent()
+//			new GooseAgent()
 		};
-		listenerList = new  ListenerList<IAcpSessionListener>();
+		listenerList = new  ListenerList<ISessionListener>();
 	}
 	
-	public static AcpService instance() {
+	public static AgentClientController instance() {
 		return instance;
 	}
 	
-	public IAgentService[] getAgents() {
+	public IAgentController[] getAgents() {
 		return agentServices;
 	}
 
-	public void setAcpService(AcpView view, IAgentService agent) {
+	public void setAcpService(ChatView view, IAgentController agent) {
 		Tracer.trace().trace(Tracer.CHAT, "setAcpService: " + agent.getName()); //$NON-NLS-1$
 		view.agentDisconnected();
 		activeSessionId = null;
@@ -112,7 +111,7 @@ public class AcpService {
 							
 							activeSessionId = sessionId;
 
-							AcpSessionModel model = new AcpSessionModel(
+							SessionListener model = new SessionListener(
 								agent,
 								sessionId,
 								job.getCwd(),
@@ -145,7 +144,7 @@ public class AcpService {
 		}
 	}
 	
-	public IAgentService getAgentService() {
+	public IAgentController getAgentService() {
 		return activeAgent;
 	}
 	
@@ -153,20 +152,20 @@ public class AcpService {
 		return activeSessionId;
 	}
 	
-	public AcpSessionModel getActiveSession() {
+	public SessionListener getActiveSession() {
 		return sessions.get(activeSessionId);
 	}
 	
-	public void addAcpListener(IAcpSessionListener listener) {
+	public void addAcpListener(ISessionListener listener) {
 		listenerList.add(listener);
 	}
 	
-	public void removeAcpListener(IAcpSessionListener listener) {
+	public void removeAcpListener(ISessionListener listener) {
 		listenerList.remove(listener);
 	}
 	
 	public void clientRequests(ClientRequest req) {
-		for (IAcpSessionListener listener: listenerList) {
+		for (ISessionListener listener: listenerList) {
 //			if (req instanceof InitializeRequest) {
 //				listener.accept((InitializeRequest)req);	
 //			} else if (req instanceof AuthenticateRequest) {
@@ -184,7 +183,7 @@ public class AcpService {
 	}
 	
 	public void clientResponds(ClientResponse resp) {
-		for (IAcpSessionListener listener: listenerList) {
+		for (ISessionListener listener: listenerList) {
 			if (resp instanceof WriteTextFileResponse) {
 				listener.accept((WriteTextFileResponse)resp);
 			} else if (resp instanceof ReadTextFileResponse) {
@@ -206,7 +205,7 @@ public class AcpService {
 	}
 	
 	public void clientNotifies(ClientNotification notification) {
-		for (IAcpSessionListener listener: listenerList) {
+		for (ISessionListener listener: listenerList) {
 			if (notification instanceof CancelNotification) {
 				listener.accept((CancelNotification)notification);
 			}
@@ -214,7 +213,7 @@ public class AcpService {
 	}
 	
 	public void agentRequests(AgentRequest req) {
-		for (IAcpSessionListener listener : listenerList) {
+		for (ISessionListener listener : listenerList) {
 			if (req instanceof ReadTextFileRequest) {
 				listener.accept((ReadTextFileRequest)req);
 			} else if (req instanceof RequestPermissionRequest) {
@@ -234,7 +233,7 @@ public class AcpService {
 	}
 	
 	public void agentResponds(AgentResponse resp) {
-		for (IAcpSessionListener listener: listenerList) {
+		for (ISessionListener listener: listenerList) {
 //			if (resp instanceof AuthenticateResponse) {
 //				listener.accept((AuthenticateResponse)resp);
 //			} else if (resp instanceof NewSessionResponse) {
@@ -250,37 +249,10 @@ public class AcpService {
 	}
 	
 	public void agentNotifies(AgentNotification notification) {
-		for (IAcpSessionListener listener: listenerList) {
+		for (ISessionListener listener: listenerList) {
 			if (notification instanceof SessionNotification) {
 				listener.accept((SessionNotification)notification);
 			}
-		}
-	}
-
-	public void prompt(String sessionId, ContentBlock[] contentBlocks) {
-		PromptRequest request = new PromptRequest(null, contentBlocks, sessionId);
-		clientRequests(request);
-		getAgentService().getAgent().prompt(request).whenComplete((result, ex) -> {
-	        if (ex != null) {
-	        	Tracer.trace().trace(Tracer.CHAT, "prompt error", ex); //$NON-NLS-1$
-	            ex.printStackTrace();
-	            
-	            // Gemini CLI: cancel before first thought throws JSONRPC error
-	            agentResponds(new PromptResponse(null, StopReason.refusal));
-	        } else {
-	           agentResponds(result);
-	        }
-	    });
-	}
-	
-	public void stopPromptTurn(String sessionId) {
-		CancelNotification notification = new CancelNotification(null, sessionId);
-		clientNotifies(notification);
-		try {
-			getAgentService().getAgent().cancel(notification);
-		} catch (Exception ex) {
-			Tracer.trace().trace(Tracer.CHAT, "stop prompt error", ex); //$NON-NLS-1$
-			ex.printStackTrace();
 		}
 	}
 }

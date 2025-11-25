@@ -11,32 +11,32 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.protocol;
+package org.eclipse.agents.chat.protocol;
 
 import java.io.IOException;
 
-import org.eclipse.agents.services.protocol.AcpSchema.AudioBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.BlobResourceContents;
-import org.eclipse.agents.services.protocol.AcpSchema.ContentBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.EmbeddedResourceBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.EmbeddedResourceResource;
-import org.eclipse.agents.services.protocol.AcpSchema.ImageBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.ResourceLinkBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionAgentMessageChunk;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionAgentThoughtChunk;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionAvailableCommandsUpdate;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionModeUpdate;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionPlan;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionToolCall;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionToolCallUpdate;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionUpdate;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionUserMessageChunk;
-import org.eclipse.agents.services.protocol.AcpSchema.TextBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.TextResourceContents;
-import org.eclipse.agents.services.protocol.AcpSchema.ToolCallContent;
-import org.eclipse.agents.services.protocol.AcpSchema.ToolCallContentContent;
-import org.eclipse.agents.services.protocol.AcpSchema.ToolCallContentDiff;
-import org.eclipse.agents.services.protocol.AcpSchema.ToolCallContentTerminal;
+import org.eclipse.agents.chat.protocol.AcpSchema.AudioBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.BlobResourceContents;
+import org.eclipse.agents.chat.protocol.AcpSchema.ContentBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.EmbeddedResourceBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.EmbeddedResourceResource;
+import org.eclipse.agents.chat.protocol.AcpSchema.ImageBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.ResourceLinkBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionAgentMessageChunk;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionAgentThoughtChunk;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionAvailableCommandsUpdate;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionModeUpdate;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionPlan;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionToolCall;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionToolCallUpdate;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionUpdate;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionUserMessageChunk;
+import org.eclipse.agents.chat.protocol.AcpSchema.TextBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.TextResourceContents;
+import org.eclipse.agents.chat.protocol.AcpSchema.ToolCallContent;
+import org.eclipse.agents.chat.protocol.AcpSchema.ToolCallContentContent;
+import org.eclipse.agents.chat.protocol.AcpSchema.ToolCallContentDiff;
+import org.eclipse.agents.chat.protocol.AcpSchema.ToolCallContentTerminal;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

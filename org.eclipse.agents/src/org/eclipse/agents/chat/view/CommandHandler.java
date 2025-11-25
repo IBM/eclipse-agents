@@ -11,7 +11,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.chat;
+package org.eclipse.agents.chat.view;
 
 
 import org.eclipse.agents.Tracer;

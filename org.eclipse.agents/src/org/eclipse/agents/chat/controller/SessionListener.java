@@ -11,55 +11,55 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.chat;
+package org.eclipse.agents.chat.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.agents.Tracer;
-import org.eclipse.agents.services.AcpService;
-import org.eclipse.agents.services.IAcpSessionListener;
-import org.eclipse.agents.services.agent.IAgentService;
-import org.eclipse.agents.services.protocol.AcpSchema.CancelNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.CreateTerminalRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.CreateTerminalResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.KillTerminalCommandRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.KillTerminalCommandResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.McpServer;
-import org.eclipse.agents.services.protocol.AcpSchema.PlanEntry;
-import org.eclipse.agents.services.protocol.AcpSchema.PlanEntryStatus;
-import org.eclipse.agents.services.protocol.AcpSchema.PromptRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.PromptResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.ReadTextFileRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.ReadTextFileResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.ReleaseTerminalRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.ReleaseTerminalResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionAgentMessageChunk;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionAgentThoughtChunk;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionAvailableCommandsUpdate;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionModeState;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionModeUpdate;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionPlan;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionToolCall;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionToolCallUpdate;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionUserMessageChunk;
-import org.eclipse.agents.services.protocol.AcpSchema.SetSessionModeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.SetSessionModeResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.TerminalOutputRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.TerminalOutputResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.TextBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.WaitForTerminalExitRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.WaitForTerminalExitResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.WriteTextFileRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.WriteTextFileResponse;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
+import org.eclipse.agents.chat.protocol.AcpSchema.CancelNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.CreateTerminalRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.CreateTerminalResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.KillTerminalCommandRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.KillTerminalCommandResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.McpServer;
+import org.eclipse.agents.chat.protocol.AcpSchema.PlanEntry;
+import org.eclipse.agents.chat.protocol.AcpSchema.PlanEntryStatus;
+import org.eclipse.agents.chat.protocol.AcpSchema.PromptRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.PromptResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReadTextFileRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReadTextFileResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReleaseTerminalRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReleaseTerminalResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionAgentMessageChunk;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionAgentThoughtChunk;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionAvailableCommandsUpdate;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionModeState;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionModeUpdate;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionPlan;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionToolCall;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionToolCallUpdate;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionUserMessageChunk;
+import org.eclipse.agents.chat.protocol.AcpSchema.SetSessionModeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.SetSessionModeResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.TerminalOutputRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.TerminalOutputResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.TextBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.WaitForTerminalExitRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.WaitForTerminalExitResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.WriteTextFileRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.WriteTextFileResponse;
+import org.eclipse.agents.chat.view.ChatBrowser;
+import org.eclipse.agents.chat.view.ChatView;
 
-public class AcpSessionModel implements IAcpSessionListener {
+public class SessionListener implements ISessionListener {
 
 	// Initialization
-	IAgentService agent;
+	IAgentController agent;
 	String sessionId; 
 	String cwd;
 	McpServer[] mcpServers; 
@@ -69,20 +69,20 @@ public class AcpSessionModel implements IAcpSessionListener {
 //	int promptId = 0;
 	List<Object> session = new ArrayList<Object>();
 	
-	AcpView view;
-	AcpBrowser browser;
+	ChatView view;
+	ChatBrowser browser;
 	
 	enum MessageType { session_prompt, user_message_chunk, agent_thought_chunk, agent_message_chunk, resource_link };
 
 	
-	public AcpSessionModel(IAgentService agent, String sessionId, String cwd, McpServer[] mcpServers, SessionModeState modes) {
+	public SessionListener(IAgentController agent, String sessionId, String cwd, McpServer[] mcpServers, SessionModeState modes) {
 		this.agent = agent;
 		this.sessionId = sessionId;
 		this.cwd = cwd;
 		this.mcpServers = mcpServers;  
 		this.modes = modes;
 		
-		AcpService.instance().addAcpListener(this);
+		AgentClientController.instance().addAcpListener(this);
 	}
 	
 	@Override
@@ -90,12 +90,12 @@ public class AcpSessionModel implements IAcpSessionListener {
 		return sessionId;
 	}
 	
-	public void setView(AcpView view) {
+	public void setView(ChatView view) {
 		this.view = view;
 		this.browser = view.getBrowser();
 	}
 	
-	public IAgentService getAgent() {
+	public IAgentController getAgent() {
 		return agent;
 	}
 

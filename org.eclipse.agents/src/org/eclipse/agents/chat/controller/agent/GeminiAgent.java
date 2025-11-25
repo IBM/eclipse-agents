@@ -11,7 +11,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.agent;
+package org.eclipse.agents.chat.controller.agent;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,12 +23,12 @@ import java.util.Arrays;
 import org.eclipse.agents.Tracer;
 import org.eclipse.wildwebdeveloper.embedder.node.NodeJSManager;
 
-public class GeminiService extends AbstractService {
+public class GeminiAgent extends AbstractAgent {
 
 	public static final String ECLIPSEAGENTS = ".eclipseagents";
 	public static final String ECLIPSEAGENTSNODE = "node";
 
-	public GeminiService() {
+	public GeminiAgent() {
 		// always bootstrap NodeJSManager first
 		NodeJSManager.getNodeJsLocation();
 	}

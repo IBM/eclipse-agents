@@ -11,23 +11,23 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.protocol;
+package org.eclipse.agents.chat.protocol;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.eclipse.agents.services.protocol.AcpSchema.AuthenticateRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.AuthenticateResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.CancelNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.LoadSessionRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.LoadSessionResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.NewSessionRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.NewSessionResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.PromptRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.PromptResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.SetSessionModeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.SetSessionModeResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.AuthenticateRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.AuthenticateResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.CancelNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.LoadSessionRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.LoadSessionResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.NewSessionRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.NewSessionResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.PromptRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.PromptResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.SetSessionModeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.SetSessionModeResponse;
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 

@@ -11,7 +11,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.protocol;
+package org.eclipse.agents.chat.protocol;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -22,27 +22,27 @@ import java.util.concurrent.CompletableFuture;
 
 import org.eclipse.agents.Activator;
 import org.eclipse.agents.Tracer;
-import org.eclipse.agents.services.AcpService;
-import org.eclipse.agents.services.agent.IAgentService;
-import org.eclipse.agents.services.protocol.AcpSchema.CreateTerminalRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.CreateTerminalResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.KillTerminalCommandRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.KillTerminalCommandResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.Outcome;
-import org.eclipse.agents.services.protocol.AcpSchema.PermissionOption;
-import org.eclipse.agents.services.protocol.AcpSchema.ReadTextFileRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.ReadTextFileResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.ReleaseTerminalResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionOutcome;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.TerminalOutputRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.TerminalOutputResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.WaitForTerminalExitRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.WaitForTerminalExitResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.WriteTextFileRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.WriteTextFileResponse;
+import org.eclipse.agents.chat.controller.AgentClientController;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
+import org.eclipse.agents.chat.protocol.AcpSchema.CreateTerminalRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.CreateTerminalResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.KillTerminalCommandRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.KillTerminalCommandResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.Outcome;
+import org.eclipse.agents.chat.protocol.AcpSchema.PermissionOption;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReadTextFileRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReadTextFileResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReleaseTerminalResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionOutcome;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.TerminalOutputRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.TerminalOutputResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.WaitForTerminalExitRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.WaitForTerminalExitResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.WriteTextFileRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.WriteTextFileResponse;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -73,9 +73,9 @@ import org.eclipse.ui.texteditor.ITextEditor;
 
 public class AcpClient implements IAcpClient {
 
-	IAgentService service;
+	IAgentController service;
 	
-	public AcpClient(IAgentService service) {
+	public AcpClient(IAgentController service) {
 		this.service = service;
 	}
 
@@ -273,7 +273,7 @@ public class AcpClient implements IAcpClient {
 
 	@Override
 	public void update(SessionNotification notification) {
-		AcpService.instance().agentNotifies(notification);
+		AgentClientController.instance().agentNotifies(notification);
 	}
 	
 	private ITextEditor findFileEditor(Path absolutePath) {

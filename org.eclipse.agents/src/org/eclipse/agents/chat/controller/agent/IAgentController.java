@@ -11,18 +11,18 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.agent;
+package org.eclipse.agents.chat.controller.agent;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.eclipse.agents.services.protocol.IAcpAgent;
-import org.eclipse.agents.services.protocol.AcpSchema.AuthenticateResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeResponse;
+import org.eclipse.agents.chat.protocol.IAcpAgent;
+import org.eclipse.agents.chat.protocol.AcpSchema.AuthenticateResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeResponse;
 
-public interface IAgentService {
+public interface IAgentController {
 
 	public String getName();
 	

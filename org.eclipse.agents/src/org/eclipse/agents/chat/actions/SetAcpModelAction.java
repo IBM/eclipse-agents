@@ -13,24 +13,24 @@
  *******************************************************************************/
 package org.eclipse.agents.chat.actions;
 
-import org.eclipse.agents.services.agent.IAgentService;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
 import org.eclipse.jface.action.Action;
 
 public class SetAcpModelAction extends Action {
 
-	private IAgentService service;
+	private IAgentController service;
 	
-	public SetAcpModelAction(IAgentService service) {
+	public SetAcpModelAction(IAgentController service) {
 		super(service.getName());
 		this.service = service;
 	}
 
 	@Override
 	public void run() {
-//		AcpService.instance().setAcpService(service);
+//		AgentClientController.instance().setAcpService(service);
 	}
 	
-	public IAgentService getAgentService() {
+	public IAgentController getAgentService() {
 		return service;
 	}
 }

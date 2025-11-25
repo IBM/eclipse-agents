@@ -14,7 +14,7 @@
 package org.eclipse.agents.preferences;
 
 import org.eclipse.agents.Activator;
-import org.eclipse.agents.services.agent.GeminiService;
+import org.eclipse.agents.chat.controller.agent.GeminiAgent;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceManager;
 import org.eclipse.jface.preference.PreferencePage;
@@ -41,7 +41,7 @@ public class AcpGeminiPreferencePage extends PreferencePage
 
 	VerifyListener integerListener;
 	PreferenceManager preferenceManager;
-	final String geminiPreferenceId = new GeminiService().getStartupCommandPreferenceId();
+	final String geminiPreferenceId = new GeminiAgent().getStartupCommandPreferenceId();
 	
 	Text gemini;
 	

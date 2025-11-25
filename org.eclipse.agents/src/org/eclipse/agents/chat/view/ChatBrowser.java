@@ -11,7 +11,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.chat;
+package org.eclipse.agents.chat.view;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -21,10 +21,10 @@ import java.util.Base64;
 
 import org.eclipse.agents.Activator;
 import org.eclipse.agents.Tracer;
+import org.eclipse.agents.chat.protocol.AcpSchema.ContentBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.PromptRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionUpdate;
 import org.eclipse.agents.contexts.platform.resource.WorkspaceResourceAdapter;
-import org.eclipse.agents.services.protocol.AcpSchema.ContentBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.PromptRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionUpdate;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -63,12 +63,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class AcpBrowser {
+public class ChatBrowser {
 
 	private ObjectMapper mapper;
 	private Browser browser;
 	
-	public AcpBrowser(Composite parent, int style) {
+	public ChatBrowser(Composite parent, int style) {
 		mapper = new ObjectMapper();
 		
 		browser = new Browser(parent, style);

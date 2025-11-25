@@ -11,25 +11,25 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services;
+package org.eclipse.agents.chat.controller;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import org.eclipse.agents.Activator;
 import org.eclipse.agents.Tracer;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
+import org.eclipse.agents.chat.protocol.AcpSchema.ClientCapabilities;
+import org.eclipse.agents.chat.protocol.AcpSchema.FileSystemCapability;
+import org.eclipse.agents.chat.protocol.AcpSchema.HttpHeader;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.McpServer;
+import org.eclipse.agents.chat.protocol.AcpSchema.NewSessionRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.NewSessionResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionModeState;
+import org.eclipse.agents.chat.protocol.AcpSchema.SseTransport;
 import org.eclipse.agents.preferences.IPreferenceConstants;
-import org.eclipse.agents.services.agent.IAgentService;
-import org.eclipse.agents.services.protocol.AcpSchema.ClientCapabilities;
-import org.eclipse.agents.services.protocol.AcpSchema.FileSystemCapability;
-import org.eclipse.agents.services.protocol.AcpSchema.HttpHeader;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.McpServer;
-import org.eclipse.agents.services.protocol.AcpSchema.NewSessionRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.NewSessionResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionModeState;
-import org.eclipse.agents.services.protocol.AcpSchema.SseTransport;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -41,7 +41,7 @@ import org.eclipse.core.runtime.jobs.Job;
 public class StartSessionJob extends Job {
 
 	// Inputs
-	IAgentService service;
+	IAgentController service;
 	InitializeResponse initializeResponse;
 	
 	// Outputs
@@ -51,8 +51,8 @@ public class StartSessionJob extends Job {
     SessionModeState modes = null;
     
 
-	public StartSessionJob(IAgentService service, InitializeResponse initializeResponse) {
-		super("Coding Agent Session");
+	public StartSessionJob(IAgentController service, InitializeResponse initializeResponse) {
+		super("Coding Agent SessionListener");
 		this.service = service;
 		this.initializeResponse = initializeResponse;
 	}

@@ -11,7 +11,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.agent;
+package org.eclipse.agents.chat.controller.agent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,10 +19,10 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 
-public class GooseService extends AbstractService {
+public class GooseAgent extends AbstractAgent {
 
 	
-	public GooseService() {
+	public GooseAgent() {
 		
 	}
 

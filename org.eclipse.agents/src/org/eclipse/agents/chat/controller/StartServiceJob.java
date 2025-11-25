@@ -11,19 +11,19 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services;
+package org.eclipse.agents.chat.controller;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import org.eclipse.agents.Activator;
-import org.eclipse.agents.services.agent.IAgentService;
-import org.eclipse.agents.services.protocol.AcpSchema.ClientCapabilities;
-import org.eclipse.agents.services.protocol.AcpSchema.FileSystemCapability;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.McpServer;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionModeState;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
+import org.eclipse.agents.chat.protocol.AcpSchema.ClientCapabilities;
+import org.eclipse.agents.chat.protocol.AcpSchema.FileSystemCapability;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.McpServer;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionModeState;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -33,7 +33,7 @@ import org.eclipse.core.runtime.jobs.Job;
 public class StartServiceJob extends Job {
 
 	// Inputs
-	IAgentService service;
+	IAgentController service;
 	String oldSessionId;
 	
 	// Outputs
@@ -43,7 +43,7 @@ public class StartServiceJob extends Job {
     SessionModeState modes = null;
 
 
-	public StartServiceJob(IAgentService service, String oldSessionId) {
+	public StartServiceJob(IAgentController service, String oldSessionId) {
 		super("Coding Agent");
 		this.service = service;
 		this.oldSessionId = oldSessionId;

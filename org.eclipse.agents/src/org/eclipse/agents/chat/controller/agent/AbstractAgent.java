@@ -11,7 +11,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.agent;
+package org.eclipse.agents.chat.controller.agent;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,15 +23,15 @@ import java.io.UnsupportedEncodingException;
 
 import org.eclipse.agents.Activator;
 import org.eclipse.agents.Tracer;
-import org.eclipse.agents.services.protocol.AcpClient;
-import org.eclipse.agents.services.protocol.AcpClientLauncher;
-import org.eclipse.agents.services.protocol.AcpClientThread;
-import org.eclipse.agents.services.protocol.IAcpAgent;
-import org.eclipse.agents.services.protocol.AcpSchema.AuthenticateResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeResponse;
+import org.eclipse.agents.chat.protocol.AcpClient;
+import org.eclipse.agents.chat.protocol.AcpClientLauncher;
+import org.eclipse.agents.chat.protocol.AcpClientThread;
+import org.eclipse.agents.chat.protocol.IAcpAgent;
+import org.eclipse.agents.chat.protocol.AcpSchema.AuthenticateResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeResponse;
 
-public abstract class AbstractService implements IAgentService {
+public abstract class AbstractAgent implements IAgentController {
 
 	public static final String ECLIPSEAGENTS = ".eclipseagents";
 	public static final String ECLIPSEAGENTSNODE = "node";
@@ -47,7 +47,7 @@ public abstract class AbstractService implements IAgentService {
 	private AuthenticateResponse authenticateResponse;
 
 	
-	public AbstractService() {
+	public AbstractAgent() {
 		
 	}
 	

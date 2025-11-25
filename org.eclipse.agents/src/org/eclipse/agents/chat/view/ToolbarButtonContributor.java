@@ -11,11 +11,11 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.chat;
+package org.eclipse.agents.chat.view;
 
 import org.eclipse.agents.chat.actions.SetAcpModelAction;
-import org.eclipse.agents.services.AcpService;
-import org.eclipse.agents.services.agent.IAgentService;
+import org.eclipse.agents.chat.controller.AgentClientController;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
 import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
@@ -39,9 +39,9 @@ public class ToolbarButtonContributor extends ContributionItem {
 		MenuManager manager = (MenuManager)menu.getData();
 		manager.getId();
 		
-		if ("org.eclipse.agents.services.cmd.model".equals(manager.getId())) {
+		if ("org.eclipse.agents.chat.controller.cmd.model".equals(manager.getId())) {
 			if (menu.getItemCount() == 0) {
-				for (IAgentService agent: AcpService.instance().getAgents()) {
+				for (IAgentController agent: AgentClientController.instance().getAgents()) {
 					MenuItem menuItem = new MenuItem(menu, SWT.PUSH, index++);
 		            menuItem.setText(agent.getName());
 		            menuItem.setData(new SetAcpModelAction(agent));
@@ -51,7 +51,7 @@ public class ToolbarButtonContributor extends ContributionItem {
 
 						@Override
 						public void widgetSelected(SelectionEvent e) {
-//							AcpService.instance().setAcpService(agent);
+//							AgentClientController.instance().setAcpService(agent);
 						}
 		            });
 				}

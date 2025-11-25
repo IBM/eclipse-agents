@@ -13,7 +13,7 @@
  * implementation
  *******************************************************************************/
 
-package org.eclipse.agents.chat;
+package org.eclipse.agents.chat.view;
 
 
 import org.eclipse.core.runtime.ListenerList;

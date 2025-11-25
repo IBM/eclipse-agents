@@ -11,26 +11,26 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.protocol;
+package org.eclipse.agents.chat.protocol;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.eclipse.agents.services.protocol.AcpSchema.CreateTerminalRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.CreateTerminalResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.KillTerminalCommandRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.KillTerminalCommandResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.ReadTextFileRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.ReadTextFileResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.ReleaseTerminalResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.SessionNotification;
-import org.eclipse.agents.services.protocol.AcpSchema.TerminalOutputRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.TerminalOutputResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.WaitForTerminalExitRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.WaitForTerminalExitResponse;
-import org.eclipse.agents.services.protocol.AcpSchema.WriteTextFileRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.WriteTextFileResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.CreateTerminalRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.CreateTerminalResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.KillTerminalCommandRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.KillTerminalCommandResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReadTextFileRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReadTextFileResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.ReleaseTerminalResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.RequestPermissionResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.SessionNotification;
+import org.eclipse.agents.chat.protocol.AcpSchema.TerminalOutputRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.TerminalOutputResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.WaitForTerminalExitRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.WaitForTerminalExitResponse;
+import org.eclipse.agents.chat.protocol.AcpSchema.WriteTextFileRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.WriteTextFileResponse;
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest;
 

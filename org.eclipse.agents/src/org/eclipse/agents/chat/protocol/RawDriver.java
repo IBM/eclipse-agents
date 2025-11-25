@@ -11,7 +11,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.services.protocol;
+package org.eclipse.agents.chat.protocol;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,13 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.eclipse.agents.services.protocol.AcpSchema.ClientCapabilities;
-import org.eclipse.agents.services.protocol.AcpSchema.FileSystemCapability;
-import org.eclipse.agents.services.protocol.AcpSchema.HttpHeader;
-import org.eclipse.agents.services.protocol.AcpSchema.InitializeRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.McpServer;
-import org.eclipse.agents.services.protocol.AcpSchema.NewSessionRequest;
-import org.eclipse.agents.services.protocol.AcpSchema.SseTransport;
+import org.eclipse.agents.chat.protocol.AcpSchema.ClientCapabilities;
+import org.eclipse.agents.chat.protocol.AcpSchema.FileSystemCapability;
+import org.eclipse.agents.chat.protocol.AcpSchema.HttpHeader;
+import org.eclipse.agents.chat.protocol.AcpSchema.InitializeRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.McpServer;
+import org.eclipse.agents.chat.protocol.AcpSchema.NewSessionRequest;
+import org.eclipse.agents.chat.protocol.AcpSchema.SseTransport;
 
 import com.google.gson.Gson;
 

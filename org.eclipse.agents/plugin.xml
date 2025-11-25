@@ -151,7 +151,7 @@
 	</extension>
 	
 	<extension point="org.eclipse.ui.views">
-      <view id="org.eclipse.agents.chat.AcpView" name="Coding Agent" class="org.eclipse.agents.chat.AcpView" icon="icons/templates.png" />
+      <view id="org.eclipse.agents.chat.AcpView" name="Coding Agent" class="org.eclipse.agents.chat.view.ChatView" icon="icons/templates.png" />
    </extension>
 	
 	 <extension point="org.eclipse.ui.menus">
@@ -163,7 +163,7 @@
 
    <extension point="org.eclipse.ui.commands">
       <category description="Chat with coding agents" id="org.eclipse.agents.chat.cmd.category" name="Coding Agents" />
-      <command name="Add to chat" description="Add to chat" categoryId="org.eclipse.agents.chat.cmd.category" defaultHandler="org.eclipse.agents.chat.CommandHandler" id="org.eclipse.agents.chat.cmd.addToChat" />
+      <command name="Add to chat" description="Add to chat" categoryId="org.eclipse.agents.chat.cmd.category" defaultHandler="org.eclipse.agents.chat.view.CommandHandler" id="org.eclipse.agents.chat.cmd.addToChat" />
    </extension>
 
    <!--extension point="org.eclipse.ui.commandImages">

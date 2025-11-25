@@ -14,9 +14,9 @@
 package org.eclipse.agents.preferences;
 
 import org.eclipse.agents.Activator;
-import org.eclipse.agents.services.AcpService;
-import org.eclipse.agents.services.agent.AbstractService;
-import org.eclipse.agents.services.agent.IAgentService;
+import org.eclipse.agents.chat.controller.AgentClientController;
+import org.eclipse.agents.chat.controller.agent.AbstractAgent;
+import org.eclipse.agents.chat.controller.agent.IAgentController;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -31,10 +31,10 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer impleme
 		store.setDefault(P_MCP_SERVER_HTTP_PORT, 8673);
 		store.setDefault(P_ACP_WORKING_DIR, ResourcesPlugin.getWorkspace().getRoot().getRawLocation().toOSString());
 		
-		for (IAgentService service: AcpService.instance().getAgents()) {
-			if (service instanceof AbstractService) {
+		for (IAgentController service: AgentClientController.instance().getAgents()) {
+			if (service instanceof AbstractAgent) {
 				store.setDefault(
-						((AbstractService)service).getStartupCommandPreferenceId(),
+						((AbstractAgent)service).getStartupCommandPreferenceId(),
 						String.join("\n", service.getDefaultStartupCommand()));
 			}				
 		}

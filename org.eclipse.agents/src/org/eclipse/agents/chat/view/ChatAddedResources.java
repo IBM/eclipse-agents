@@ -11,7 +11,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.agents.chat;
+package org.eclipse.agents.chat.view;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -22,14 +22,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.agents.Activator;
+import org.eclipse.agents.chat.protocol.AcpSchema.Annotations;
+import org.eclipse.agents.chat.protocol.AcpSchema.ContentBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.EmbeddedResourceBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.ResourceLinkBlock;
+import org.eclipse.agents.chat.protocol.AcpSchema.Role;
+import org.eclipse.agents.chat.protocol.AcpSchema.TextResourceContents;
 import org.eclipse.agents.contexts.adapters.IResourceTemplate;
 import org.eclipse.agents.contexts.platform.resource.WorkspaceResourceAdapter;
-import org.eclipse.agents.services.protocol.AcpSchema.Annotations;
-import org.eclipse.agents.services.protocol.AcpSchema.ContentBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.EmbeddedResourceBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.ResourceLinkBlock;
-import org.eclipse.agents.services.protocol.AcpSchema.Role;
-import org.eclipse.agents.services.protocol.AcpSchema.TextResourceContents;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -37,12 +37,12 @@ import org.eclipse.swt.widgets.Composite;
 
 import io.modelcontextprotocol.spec.McpSchema.ResourceLink;
 
-public class AcpContexts extends Composite {
+public class ChatAddedResources extends Composite {
 
 	Map<String, ContentBlock> contexts;
 	Map<String, Chips> chips;
 	
-	public AcpContexts(Composite parent, int style) {
+	public ChatAddedResources(Composite parent, int style) {
 		super(parent, style);
 		setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		setLayout(new GridLayout(3, false));
