@@ -47,6 +47,4 @@ public class NewSessionAction extends Action {
 			}
 		}
  	}
-	
-	
 }
