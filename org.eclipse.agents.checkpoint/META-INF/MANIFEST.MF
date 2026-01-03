@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Agent Checkpoints
+Bundle-SymbolicName: org.eclipse.agents.checkpoint
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.agents.checkpoint.Activator
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: org.eclipse.agents.checkpoint
+Bundle-ActivationPolicy: lazy
