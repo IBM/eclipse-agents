@@ -68,7 +68,7 @@ public abstract class AbstractService implements IAgentService {
 		return Activator.PLUGIN_ID + ".acp.agent.startup." + getId();
 	}
 	
-	public File getAgentsNodeDirectory() {
+	public static File getAgentsHomeDirectory() {
 
 		File userHome = new File(System.getProperty("user.home"));
 		if (!userHome.exists() || !userHome.isDirectory()) {
@@ -82,6 +82,12 @@ public abstract class AbstractService implements IAgentService {
 	    		throw new RuntimeException("Could not create " + ECLIPSEAGENTS + " in user home directory");
 	    	}
 	    }
+	    
+	    return agentsHome;
+	}
+	
+	public File getAgentsDirectory() {
+	    AbstractService.getAgentsHomeDirectory();
 	    
 	    File agentsNode= new File(System.getProperty("user.home") + File.separator + ECLIPSEAGENTS + File.separator + getFolderName());
 

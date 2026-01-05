@@ -187,7 +187,7 @@ public class AcpGeminiPreferencePage extends PreferencePage implements
 		
 		for (IAgentService service: AgentController.instance().getAgents()) {
 			if (service instanceof GeminiService) {
-				installLocation.setText(((GeminiService)service).getAgentsNodeDirectory().getAbsolutePath());
+				installLocation.setText(((GeminiService)service).getAgentsDirectory().getAbsolutePath());
 			}
 		}
 		return parent;

@@ -67,7 +67,7 @@ public class GeminiService extends AbstractService implements IPreferenceConstan
 				throw new RuntimeException("user home not found");
 			}
 			
-			File agentsNodeDir = getAgentsNodeDirectory();
+			File agentsNodeDir = getAgentsDirectory();
 			String geminiVersion = Activator.getDefault().getPreferenceStore().getString(P_ACP_GEMINI_VERSION);
 			
 			monitor.subTask("Checking Version");
@@ -187,7 +187,7 @@ public class GeminiService extends AbstractService implements IPreferenceConstan
 	}
 	
 	private String getGeminiCommand() {
-		return getAgentsNodeDirectory().getAbsolutePath() + 
+		return getAgentsDirectory().getAbsolutePath() + 
 					File.separator + "node_modules" +
 					File.separator + "@google" + 
 					File.separator + "gemini-cli" + 
