@@ -166,6 +166,20 @@ public final class CheckpointTests {
 	
 	@Test
 	@Order(2)
+	public void writeToFile() {
+		WorkspaceController controller = new WorkspaceController(UUID.randomUUID().toString());
+		Path path = (Path)file.getRawLocation();
+		controller.writeToFile(path, modifiedContent);
+	}
+	
+	@Test
+	@Order(1)
+	public void checkpoint2() {
+		controller.recordCheckpoint(file.getProject(), "Second Checkpoint", new NullProgressMonitor());
+	}
+	
+	@Test
+	@Order(3)
 	public void checkpointDestroy() {
 		controller.destroy();
 	}	
