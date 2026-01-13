@@ -27,6 +27,7 @@ class ToolCall extends DivTemplate {
 		this._buttonContainer = this.root.querySelector('div div#permissionButtonContainer');
 		
 		this._content = this.root.querySelector('div div#contentContainer div#toolCallContent');
+		this._contentMarkdown = this.root.querySelector('div div#contentContainer chunked-markdown#toolCallContentMarkdown');
 		
 		this._expandCollapseContent = this.root.querySelector('div button#expandCollapseContentButton');
 		this._expandCollapseContentImg = this._expandCollapseContent.querySelector('img');		
@@ -56,6 +57,7 @@ class ToolCall extends DivTemplate {
 			this._expandCollapseContent.style.display = "none";
 			this._contentFooterButton.style.display = "none";
 			this._content.style.display = "none";
+			this._contentMarkdown.style.display = "none";
 		}
 		
 		if (permissionOptions != null) {
@@ -136,18 +138,36 @@ class ToolCall extends DivTemplate {
 		if (this._content.textContent === null || this._content.textContent === "") {
 			// expand when receiving first update
 			this._content.style.display = "unset";
+			this._contentMarkdown.style.display = "unset";
 			this._expandCollapseContentImg.src = "icons/collapse.png";
 			this._contentFooterButtonImg.src = "icons/collapse.png";
 			this._expandCollapseContent.style.display = "flex";
 			this._contentFooterButton.style.display = "unset";
 		}
 		
-		this._content.textContent = content;
+		const contentJson = JSON.parse(content);
+		
+		for(const contentItem of contentJson) {
+			switch(contentItem.type) {
+				case "content":
+					this._contentMarkdown.addContentBlock(contentItem.content);
+					break;
+				case "diff":
+					// TODO: properly render diff instead of raw json with oldText and newText
+					this._content.textContent = content;
+					break;
+				case "terminal":
+					// TODO: handle terminal content type
+					this._content.textContent = content;
+					break;
+			}
+		}
 	}
 	
 	toggleContent(event) {
 		if (this._content.style.display === "none") {
 			this._content.style.display = "unset";
+			this._contentMarkdown.style.display = "unset";
 			this._expandCollapseContentImg.src = "icons/collapse.png";
 			this._contentFooterButton.style.display = "unset";
 		} else {
@@ -157,6 +177,7 @@ class ToolCall extends DivTemplate {
 
 	collapseContent(event) {
 		this._content.style.display = "none";
+		this._contentMarkdown.style.display = "none"; 
 		this._contentFooterButton.style.display = "none";
 		this._expandCollapseContentImg.src = "icons/expand.png";
 	}

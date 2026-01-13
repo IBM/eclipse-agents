@@ -77,6 +77,7 @@
 		<!-- SessionUpdate::SessionToolCall -->
 
 		<template id = "tool-call">
+			<link href="prism-okaida.css" rel="stylesheet" >
 			<link href="components/tool-call.css" rel="stylesheet">
 			<div id="toolCall" class="toolCall">
 				<div id="toolCallId" tabindex="0">
@@ -87,6 +88,7 @@
 				<button id="expandCollapseContentButton" class="expandCollapseButton"><img alt=""></img></button>
 				<div id="contentContainer">
 					<div id="toolCallContent" tabindex="0"></div>
+					<chunked-markdown id="toolCallContentMarkdown" tabindex="0"></chunked-markdown>
 					<button id="contentFooterButton" class="footerButton"><img alt=""></img></button>
 				</div>
 				<div id="permissionButtonContainer" class="buttonContainer"></div>
