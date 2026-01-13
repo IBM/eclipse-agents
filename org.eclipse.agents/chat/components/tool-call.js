@@ -46,20 +46,20 @@ class ToolCall extends DivTemplate {
 		this._expandCollapseContent.addEventListener("click", (event) => this.toggleContent(event));
 		this._contentFooterButton.addEventListener("click", (event) => this.collapseContent(event));
 		
-//		if (content && content.length > 0) {
-//			// TODO: Currently displaying the raw content.
-//			// we'll need to render the content based on the type of content provided
-//			this._content.textContent = content;
-//			this._expandCollapseContentImg.src = "icons/collapse.png";
-//			this._contentFooterButtonImg.src = "icons/collapse.png";
-//		} else {
+		if (content && content.length > 0) {
+			// TODO: Currently displaying the raw content.
+			// we'll need to render the content based on the type of content provided
+			this._content.textContent = content;
+			this._expandCollapseContentImg.src = "icons/collapse.png";
+			this._contentFooterButtonImg.src = "icons/collapse.png";
+		} else {
 			this._expandCollapseContent.style.display = "none";
 			this._contentFooterButton.style.display = "none";
 			this._content.style.display = "none";
-//		}
+		}
 		
 		if (permissionOptions != null) {
-			for(const option of permissionOptions) {
+			for (const option of permissionOptions) {
 				const permissionRequestButton = addChild(this._buttonContainer, "permission-request-button");
 				permissionRequestButton.create(option.kind, option.name, option.optionId, this);
 			}
@@ -139,7 +139,7 @@ class ToolCall extends DivTemplate {
 			this._expandCollapseContentImg.src = "icons/collapse.png";
 			this._contentFooterButtonImg.src = "icons/collapse.png";
 			this._expandCollapseContent.style.display = "flex";
-			this._contentFooterButton.style.display = "unset";	
+			this._contentFooterButton.style.display = "unset";
 		}
 		
 		this._content.textContent = content;
