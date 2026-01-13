@@ -31,6 +31,7 @@ import org.eclipse.agents.services.protocol.AcpSchema.PromptRequest;
 import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionOutcome;
 import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionRequest;
 import org.eclipse.agents.services.protocol.AcpSchema.RequestPermissionResponse;
+import org.eclipse.agents.services.protocol.AcpSchema.SessionPlan;
 import org.eclipse.agents.services.protocol.AcpSchema.SessionUpdate;
 import org.eclipse.agents.services.protocol.AcpSchema.ToolCallContent;
 import org.eclipse.agents.services.protocol.AcpSchema.ToolCallUpdate;
@@ -491,5 +492,4 @@ public class ChatBrowser {
 			Tracer.trace().trace(Tracer.BROWSER, "Could find permission response: " + location);
 		}
 	}
-	
 }

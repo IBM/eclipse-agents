@@ -33,6 +33,7 @@ import org.eclipse.agents.chat.toolbar.ToolbarSessionStartStop;
 import org.eclipse.agents.contexts.platform.resource.WorkspaceResourceAdapter;
 import org.eclipse.agents.services.agent.IAgentService;
 import org.eclipse.agents.services.protocol.AcpSchema.ContentBlock;
+import org.eclipse.agents.services.protocol.AcpSchema.PlanEntry;
 import org.eclipse.agents.services.protocol.AcpSchema.TextBlock;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
@@ -68,6 +69,7 @@ public class ChatView extends ViewPart implements IAgentServiceListener, Travers
 	boolean disposed = false;
 	ChatResourceAdditions contexts;
 	ChatFileDrawer fileDrawer;
+	ChatTasksDrawer tasksDrawer;
 	ChatBrowser browser;
 
 	Composite middle;
@@ -100,6 +102,7 @@ public class ChatView extends ViewPart implements IAgentServiceListener, Travers
 		contexts = new ChatResourceAdditions(middle, SWT.NONE);
 		
 		fileDrawer = new ChatFileDrawer(middle);
+		tasksDrawer = new ChatTasksDrawer(middle);
 
 		inputText = new Text(middle, SWT.MULTI | SWT.BORDER);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -164,6 +167,7 @@ public class ChatView extends ViewPart implements IAgentServiceListener, Travers
 		SessionController.removeChatView(this);
 		AgentController.instance().removeAgentListener(this);
 		fileDrawer.dispose();
+		tasksDrawer.dispose();
 	}
 
 	@Override
@@ -297,6 +301,15 @@ public class ChatView extends ViewPart implements IAgentServiceListener, Travers
 			public void run() {
 				fileDrawer.workspaceChangeRemoved(change);
 				middle.layout(true);
+			}
+		});
+	}
+	
+	public void tasksChanged(PlanEntry[] planEntries) {
+		Activator.getDisplay().syncExec(new Thread() {
+			@Override
+			public void run() {
+				tasksDrawer.tasksChanged(planEntries);
 			}
 		});
 	}

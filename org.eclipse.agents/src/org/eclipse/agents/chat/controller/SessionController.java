@@ -194,14 +194,9 @@ public class SessionController implements ISessionListener, IWorkspaceChangeList
 						toolCall.toolCallId(), 
 						toolCall.status().toString(),
 						toolCall.content());
-			}
-			else if (notification.update() instanceof SessionPlan) {
-				PlanEntry[] entries = ((SessionPlan)notification.update()).entries();
-				for (int i = 1; i <= entries.length; i++) {
-					if (entries[i].status() == PlanEntryStatus.in_progress) {
-						Tracer.trace().trace(Tracer.ACP, "Step " + i + " of " + (entries.length + 1) + ": " + entries[i].content());
-					}
-				}
+			} else if (notification.update() instanceof SessionPlan) {
+				SessionPlan plan = (SessionPlan)notification.update();
+				view.tasksChanged(plan.entries());
 			}
 			else if (notification.update() instanceof SessionAvailableCommandsUpdate) {
 				Tracer.trace().trace(Tracer.ACP, SessionAvailableCommandsUpdate.class.getCanonicalName());
