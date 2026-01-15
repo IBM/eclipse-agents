@@ -64,6 +64,7 @@ class ToolCall extends DivTemplate {
 				permissionRequestButton.create(option.kind, option.name, option.optionId, this);
 			}
 			this._toolCallContainer.classList.add("requestToolCall");
+			this._toolCallContainer.style.paddingTop = "0";
 			
 			// TODO: Gemini can return empty info for the title.
 			// For now, replace it with the toolCallId if it's empty
@@ -141,6 +142,7 @@ class ToolCall extends DivTemplate {
 			this._contentFooterButton.textContent = "\u2296";
 			this._expandCollapseContent.style.display = "flex";
 			this._contentFooterButton.style.display = "unset";
+			this._toolCallContainer.style.paddingTop = "0";
 		}
 		
 		const contentJson = JSON.parse(content);
