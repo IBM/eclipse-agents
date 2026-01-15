@@ -49,8 +49,10 @@ class ToolCall extends DivTemplate {
 			// TODO: Currently displaying the raw content.
 			// we'll need to render the content based on the type of content provided
 			this._content.textContent = content;
-			this._expandCollapseContent.textContent = "\u2296";
+			this._expandCollapseContent.textContent = "\u2295";
 			this._contentFooterButton.textContent = "\u2296";
+			this._content.style.display = "none";
+			this._contentFooterButton.style.display = "none";
 		} else {
 			this._expandCollapseContent.style.display = "none";
 			this._contentFooterButton.style.display = "none";
@@ -136,12 +138,12 @@ class ToolCall extends DivTemplate {
 	updateContent(content) {
 		if (this._content.textContent === null || this._content.textContent === "") {
 			// expand when receiving first update
-			this._content.style.display = "unset";
-			this._contentMarkdown.style.display = "unset";
-			this._expandCollapseContent.textContent = "\u2296";
+			this._content.style.display = "none";
+			this._contentMarkdown.style.display = "none";
+			this._expandCollapseContent.textContent = "\u2295";
 			this._contentFooterButton.textContent = "\u2296";
 			this._expandCollapseContent.style.display = "flex";
-			this._contentFooterButton.style.display = "unset";
+			this._contentFooterButton.style.display = "none";
 			this._toolCallContainer.style.paddingTop = "0";
 		}
 		
