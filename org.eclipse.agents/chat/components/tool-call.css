@@ -53,11 +53,6 @@ div:focus {
 	border-radius: 2px;
 }
 
-.expandCollapseButton img {
-	height: 12px;
-	margin-top: 2px;
-}
-
 .expandCollapseButton:hover {
 	background-color: #ccc;
 }
